@@ -13,7 +13,7 @@
     "start": "nodemon --inspect --ignore node_modules server",
     "test": "mocha",
     "testOld": "mocha --bail --reporter nyan ./test/ServerSpec.js; pkill -n node;",
-    "lint": "eslint ./"
+    "lint": "eslint --fix ./"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
