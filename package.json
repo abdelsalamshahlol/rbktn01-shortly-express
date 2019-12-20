@@ -9,9 +9,10 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash && ./node_modules/.bin/jsdoc ./server -r -d docs",
-    "start": "nodemon --ignore node_modules server",
-    "test": "mocha --bail --reporter nyan test/ServerSpec.js; pkill -n node;",
+    "postinstall": "./node_modules/.bin/jsdoc ./server -r -d docs",
+    "start": "nodemon --inspect --ignore node_modules server",
+    "test": "mocha",
+    "testOld": "mocha --bail --reporter nyan ./test/ServerSpec.js; pkill -n node;",
     "lint": "eslint ./"
   },
   "dependencies": {
