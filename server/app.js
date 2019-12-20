@@ -5,6 +5,7 @@ const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/auth');
 const models = require('./models');
+const cookieParser = require('./middleware/cookieParser');
 
 const app = express();
 
@@ -106,8 +107,9 @@ app.post('/signup', (req, res)=>{
 });
 
 app.get('/login', (req, res) =>{
-  res.render('login.ejs')
-})
+  cookieParser(req, res);
+  res.render('login.ejs');
+});
 
 app.post('/login', (req, res) => {
   models.Users.get({username: req.body.username}).then(user=> {
@@ -115,14 +117,13 @@ app.post('/login', (req, res) => {
       let isExist = models.Users.compare(req.body.password, user.password, user.salt);
       if (isExist) {
         res.redirect('/');
-      }
-      else {
+      } else {
         res.redirect('/login');
       }
     }
     res.redirect('/login');
-  })
-})
+  });
+});
 
 /************************************************************/
 // Handle the code parameter route last - if all other routes fail
