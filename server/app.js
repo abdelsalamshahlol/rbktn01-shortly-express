@@ -15,8 +15,9 @@ app.use(partials());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
-
-
+//TODO.aPP.USE COOKIE PARS
+app.use(cookieParser);
+//app.use(Auth.createSession);
 
 app.get('/',
   (req, res) => {
@@ -107,7 +108,7 @@ app.post('/signup', (req, res)=>{
 });
 
 app.get('/login', (req, res) =>{
-  cookieParser(req, res);
+  //cookieParser(req, res);
   res.render('login.ejs');
 });
 

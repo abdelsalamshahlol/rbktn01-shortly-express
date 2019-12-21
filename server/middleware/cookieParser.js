@@ -1,22 +1,21 @@
 const parseCookies = (req, res, next) => {
   // get cookies from request header
-  console.log(req.headers)
-  let cookies = {};
-  if(req.headers.Cookie){
-    let arr = req.headers.Cookie.split('; ');
-    console.log({arr})
-    arr.forEach(item=>{
-    let splittedItem = item.split('=');
-    cookies[splittedItem[0]]=splittedItem[1];
-    console.log({cookies})
-   })
+  let cookie = req.headers.cookie;
+  let cookiesObj = {};
 
+  if (cookie) {
+    // convert the string into object
+    let splitCookie = cookie.split('; ');
+    splitCookie.forEach(cookieStr =>{
+      let [key, val] = cookieStr.split('=');
+      cookiesObj [key] = val;
+    });
   }
 
-  // convert the string into object
   // set the object to req
-
-  //console.log({cookies: req.cookies});
+  // console.log(cookiesObj)
+  req.cookies = cookiesObj;
+  next();
 };
 
 module.exports = parseCookies;
