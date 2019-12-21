@@ -4,21 +4,22 @@ const Promise = require('bluebird');
 module.exports.createSession = (req, res, next) => {
   // Check for session cookie
   Promise.resolve(req.cookies.shortlyid)
-  .then(hash =>{
-    if (!hash) {
-      throw hash;
-    }
-  }).catch(hash => {
+    .then(hash =>{
+      if (!hash) {
+        throw hash;
+      }
+    }).catch(hash => {
     // if !exist -> make new session
-    return models.Sessions.create()
-      .then({insertId} =>{
+      return models.Sessions.create()
+        .then(({insertId}) =>{
         // attempt to load session from database
-        models.Sessions.get({id: insertId})
-          .tap(sessionData => {
+          models.Sessions.get({id: insertId})
+            .tap(sessionData => {
 
-          })
-      })
-  }).then();
+            });
+        });
+    });
+  // .then();
 
   // if !exist -> make new session
   // otherwise -> session on req object
